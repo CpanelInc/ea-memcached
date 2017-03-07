@@ -1,7 +1,0 @@
-<directory name="ea-memcached" rev="4" srcmd5="08c91de638dc67aa075e447391154e46" vrev="4">
-  <entry md5="49b39f8f9e4cc71614167f8cc830b3b9" mtime="1488854216" name="ea-memcached.spec" size="3940" />
-  <entry md5="440aa058d7d49d8615ae3323f7dbd2a2" mtime="1488594153" name="memcached-1.4.35.tar.gz" size="398312" />
-  <entry md5="a50ed62e82d31fb4cb2de2226650c545" mtime="1488594154" name="memcached.conf" size="87" />
-  <entry md5="63f512680c2a4ed9a3ff6cca09d7b300" mtime="1488362104" name="memcached.service" size="257" />
-  <entry md5="2b3b5efe167df0440edccdce4d9b08e1" mtime="1488362107" name="memcached.sysv" size="1698" />
-</directory>
