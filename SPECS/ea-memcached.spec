@@ -13,7 +13,8 @@
 Name: ea-memcached
 Version: 1.4.35
 Summary: memcached daemon
-Release: 1%{?dist}
+%define release_prefix 1
+Release: %{release_prefix}%{?dist}.cpanel
 License: MIT
 Group: Programming/Languages
 URL: https://www.memcached.org/
