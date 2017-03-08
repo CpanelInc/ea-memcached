@@ -13,7 +13,7 @@
 Name: ea-memcached
 Version: 1.4.35
 Summary: memcached daemon
-%define release_prefix 1
+%define release_prefix 3
 Release: %{release_prefix}%{?dist}.cpanel
 License: MIT
 Group: Programming/Languages
@@ -25,7 +25,8 @@ Source2: memcached.sysv
 # unit file for systemd systems
 Source3: memcached.service
 
-BuildRequires: libevent-devel
+BuildRequires: libevent-devel cyrus-sasl-devel
+Requires: cyrus-sasl
 
 %if %{with_systemd}
 BuildRequires: systemd
@@ -65,7 +66,7 @@ access to the memcached binary include files.
 %setup -n memcached-%{version}
 
 %build
-./configure --prefix=%{buildroot}/%{_usr}
+./configure --prefix=%{buildroot}/%{_usr} --enable-sasl
 make
 
 #%check
@@ -153,6 +154,9 @@ getent group %{groupname} >/dev/null || groupadd -r %{groupname}
 %{_includedir}/memcached/*
 
 %changelog
+* Wed Mar 8 2017 Jacob Perkins <jacob.perkins@cpanel.net> - 0.3
+- Enabled SASL support
+
 * Fri Mar  3 2017 Jack Hayhurst <jack@deleteos.com> - 0.2
 - reworked a lot of paths in the specfile - it should now be working
 
