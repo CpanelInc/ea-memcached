@@ -154,7 +154,7 @@ getent group %{groupname} >/dev/null || groupadd -r %{groupname}
 %{_includedir}/memcached/*
 
 %changelog
-* Wed Mar 8 2017 Jack Hayhurst <jakdept@gmail.com> - 0.4
+* Wed Jul 24 2017 Jack Hayhurst <jakdept@gmail.com> - 0.4
 - Changed install location in spec file to match init files
 
 * Wed Mar 8 2017 Jacob Perkins <jacob.perkins@cpanel.net> - 0.3
