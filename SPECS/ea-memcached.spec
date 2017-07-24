@@ -78,6 +78,7 @@ make install INSTALL_ROOT=%{buildroot}
 
 # install config
 install -m 755 -d %{buildroot}/%{_sysconfdir}
+mkdir -p %{buildroot}/%{_sysconfdir}/sysconfig
 install -pm 644 %{SOURCE1} %{buildroot}/%{_sysconfdir}/sysconfig/memcached
 
 %if %{with_systemd}
