@@ -139,7 +139,7 @@ getent group %{groupname} >/dev/null || groupadd -r %{groupname}
 
 %files
 %defattr(-,root,root,-)
-%config(noreplace) %{_sysconfdir}/memcached.conf
+%config(noreplace) %{_sysconfdir}/sysconfig/memcached
 %{_bindir}/memcached
 %{_mandir}/man1/memcached.1*
 %if %{with_systemd}
