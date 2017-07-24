@@ -19,7 +19,7 @@ License: MIT
 Group: Programming/Languages
 URL: https://www.memcached.org/
 Source: http://www.memcached.org/files/memcached-%{version}.tar.gz
-Source1: memcached.conf
+Source1: memcached.env
 # init script for sysv systems
 Source2: memcached.sysv
 # unit file for systemd systems
@@ -78,7 +78,7 @@ make install INSTALL_ROOT=%{buildroot}
 
 # install config
 install -m 755 -d %{buildroot}/%{_sysconfdir}
-install -pm 644 %{SOURCE1} %{buildroot}/%{_sysconfdir}/
+install -pm 644 %{SOURCE1} %{buildroot}/%{_sysconfdir}/sysconfig/memcached
 
 %if %{with_systemd}
   mkdir -p %{buildroot}%{_unitdir}
@@ -154,11 +154,14 @@ getent group %{groupname} >/dev/null || groupadd -r %{groupname}
 %{_includedir}/memcached/*
 
 %changelog
+* Wed Mar 8 2017 Jack Hayhurst <jakdept@gmail.com> - 0.4
+- Changed install location in spec file to match init files
+
 * Wed Mar 8 2017 Jacob Perkins <jacob.perkins@cpanel.net> - 0.3
 - Enabled SASL support
 
-* Fri Mar  3 2017 Jack Hayhurst <jack@deleteos.com> - 0.2
+* Fri Mar  3 2017 Jack Hayhurst <jakdept@gmail.com> - 0.2
 - reworked a lot of paths in the specfile - it should now be working
 
-* Fri Mar  3 2017 Jack Hayhurst <jack@deleteos.com> - 0.1
+* Fri Mar  3 2017 Jack Hayhurst <jakdept@gmail.com> - 0.1
 - initial spec file creation
