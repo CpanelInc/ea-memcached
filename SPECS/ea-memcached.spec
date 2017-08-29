@@ -13,13 +13,13 @@
 Name: ea-memcached
 Version: 1.4.35
 Summary: memcached daemon
-%define release_prefix 3
+%define release_prefix 4
 Release: %{release_prefix}%{?dist}.cpanel
 License: MIT
 Group: Programming/Languages
 URL: https://www.memcached.org/
 Source: http://www.memcached.org/files/memcached-%{version}.tar.gz
-Source1: memcached.conf
+Source1: memcached.env
 # init script for sysv systems
 Source2: memcached.sysv
 # unit file for systemd systems
@@ -78,7 +78,8 @@ make install INSTALL_ROOT=%{buildroot}
 
 # install config
 install -m 755 -d %{buildroot}/%{_sysconfdir}
-install -pm 644 %{SOURCE1} %{buildroot}/%{_sysconfdir}/
+mkdir -p %{buildroot}/%{_sysconfdir}/sysconfig
+install -pm 644 %{SOURCE1} %{buildroot}/%{_sysconfdir}/sysconfig/memcached
 
 %if %{with_systemd}
   mkdir -p %{buildroot}%{_unitdir}
@@ -139,7 +140,7 @@ getent group %{groupname} >/dev/null || groupadd -r %{groupname}
 
 %files
 %defattr(-,root,root,-)
-%config(noreplace) %{_sysconfdir}/memcached.conf
+%config(noreplace) %{_sysconfdir}/sysconfig/memcached
 %{_bindir}/memcached
 %{_mandir}/man1/memcached.1*
 %if %{with_systemd}
@@ -154,11 +155,15 @@ getent group %{groupname} >/dev/null || groupadd -r %{groupname}
 %{_includedir}/memcached/*
 
 %changelog
-* Wed Mar 8 2017 Jacob Perkins <jacob.perkins@cpanel.net> - 0.3
+* Wed Jul 24 2017 Jack Hayhurst <jakdept@gmail.com> - 1.4.35-4
+- Change config install location in spec file to match init files
+- modified from github PR #1, also fixed changelog versions
+
+* Wed Mar 8 2017 Jacob Perkins <jacob.perkins@cpanel.net> - 1.4.35-3
 - Enabled SASL support
 
-* Fri Mar  3 2017 Jack Hayhurst <jack@deleteos.com> - 0.2
+* Fri Mar  3 2017 Jack Hayhurst <jakdept@gmail.com> - 1.4.35-2
 - reworked a lot of paths in the specfile - it should now be working
 
-* Fri Mar  3 2017 Jack Hayhurst <jack@deleteos.com> - 0.1
+* Fri Mar  3 2017 Jack Hayhurst <jakdept@gmail.com> - 1.4.35-1
 - initial spec file creation
