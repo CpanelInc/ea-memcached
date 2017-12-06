@@ -4,16 +4,17 @@
 %global groupname  memcached
 %global binname memcached
 
-%if 0%{?fedora} >= 17 || 0%{?rhel} >= 7
+%if 0%{?centos} >= 7 || 0%{?fedora} >= 17 || 0%{?rhel} >= 7
 %global with_systemd 1
 %else
 %global with_systemd 0
 %endif
 
 Name: ea-memcached
-Version: 1.4.35
+Version: 1.5.3
+
 Summary: memcached daemon
-%define release_prefix 4
+%define release_prefix 1
 Release: %{release_prefix}%{?dist}.cpanel
 License: MIT
 Group: Programming/Languages
@@ -25,10 +26,12 @@ Source2: memcached.sysv
 # unit file for systemd systems
 Source3: memcached.service
 
+Patch1: memcached-unit.patch
+
 BuildRequires: libevent-devel cyrus-sasl-devel
-Requires: cyrus-sasl
 
 %if %{with_systemd}
+BuildRequires: systemd-units
 BuildRequires: systemd
 Requires(post): systemd
 Requires(preun): systemd
@@ -55,7 +58,7 @@ web applications by alleviating database load.
 
 %package devel
 Summary:	Files needed for development using memcached protocol
-Group:		Development/Libraries 
+Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 
 %description devel
@@ -64,6 +67,7 @@ access to the memcached binary include files.
 
 %prep
 %setup -n memcached-%{version}
+%patch1 -p1 -b .unit
 
 %build
 ./configure --prefix=%{buildroot}/%{_usr} --enable-sasl
@@ -155,6 +159,9 @@ getent group %{groupname} >/dev/null || groupadd -r %{groupname}
 %{_includedir}/memcached/*
 
 %changelog
+* Wed Dec 06 2017 Cory McIntire <cory@cpanel.net> - 1.5.3-1
+- EA-6996: Update version and enable systemd calls on CentOS 7
+
 * Wed Jul 24 2017 Jack Hayhurst <jakdept@gmail.com> - 1.4.35-4
 - Change config install location in spec file to match init files
 - modified from github PR #1, also fixed changelog versions
