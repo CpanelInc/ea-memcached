@@ -14,7 +14,7 @@ Name: ea-memcached
 Version: 1.5.3
 
 Summary: memcached daemon
-%define release_prefix 1
+%define release_prefix 2
 Release: %{release_prefix}%{?dist}.cpanel
 License: MIT
 Group: Programming/Languages
@@ -59,7 +59,7 @@ web applications by alleviating database load.
 %package devel
 Summary:	Files needed for development using memcached protocol
 Group:		Development/Libraries
-Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	%{name} = %{version}-%{release}
 
 %description devel
 Install memcached-devel if you are developing C/C++ applications that require
@@ -159,6 +159,9 @@ getent group %{groupname} >/dev/null || groupadd -r %{groupname}
 %{_includedir}/memcached/*
 
 %changelog
+* Fri Jan 12 2018 Cory McIntire <cory@cpanel.net> - 1.5.3-2
+- EA-7058: Fix devel Require to match package name
+
 * Wed Dec 06 2017 Cory McIntire <cory@cpanel.net> - 1.5.3-1
 - EA-6996: Update version and enable systemd calls on CentOS 7
 
