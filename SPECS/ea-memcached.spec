@@ -11,10 +11,10 @@
 %endif
 
 Name: ea-memcached
-Version: 1.5.3
+Version: 1.5.12
 
 Summary: memcached daemon
-%define release_prefix 2
+%define release_prefix 1
 Release: %{release_prefix}%{?dist}.cpanel
 License: MIT
 Group: Programming/Languages
@@ -159,6 +159,9 @@ getent group %{groupname} >/dev/null || groupadd -r %{groupname}
 %{_includedir}/memcached/*
 
 %changelog
+* Thu Nov 08 2018 Cory McIntire <cory@cpanel.net> - 1.5.12-1
+- EA-7981: update to version 1.5.12
+
 * Fri Jan 12 2018 Cory McIntire <cory@cpanel.net> - 1.5.3-2
 - EA-7058: Fix devel Require to match package name
 
