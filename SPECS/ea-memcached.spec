@@ -14,7 +14,7 @@ Name: ea-memcached
 Version: 1.5.12
 
 Summary: memcached daemon
-%define release_prefix 1
+%define release_prefix 2
 Release: %{release_prefix}%{?dist}.cpanel
 License: MIT
 Group: Programming/Languages
@@ -49,6 +49,10 @@ Requires(pre):  shadow-utils
 
 # as of 3.5.5-4 selinux has memcache included
 Obsoletes: memcached-selinux
+
+# Don't conflict with other memcached packages since we install to the same
+# place. Allow other packages dependent on memcached to install.
+Provides: memcached
 
 %description
 memcached is a high-performance, distributed memory object caching
@@ -159,6 +163,12 @@ getent group %{groupname} >/dev/null || groupadd -r %{groupname}
 %{_includedir}/memcached/*
 
 %changelog
+* Tue Apr 16 2019 Andy Baugh <thomas.baugh@cpanel.net> - 1.5.12-2
+- CPANEL-26786: Add "provides" entry for memcached, as we actually conflict
+  with the base package due to installing to the same place (but it is the
+  same software package ultimately, so may as well have it act as an
+  alternative instead of conflicting).
+
 * Thu Nov 08 2018 Cory McIntire <cory@cpanel.net> - 1.5.12-1
 - EA-7981: update to version 1.5.12
 
