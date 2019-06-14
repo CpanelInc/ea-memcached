@@ -11,10 +11,10 @@
 %endif
 
 Name: ea-memcached
-Version: 1.5.12
+Version: 1.5.16
 
 Summary: memcached daemon
-%define release_prefix 2
+%define release_prefix 1
 Release: %{release_prefix}%{?dist}.cpanel
 License: MIT
 Group: Programming/Languages
@@ -163,6 +163,9 @@ getent group %{groupname} >/dev/null || groupadd -r %{groupname}
 %{_includedir}/memcached/*
 
 %changelog
+* Fri Jun 14 2019 Tim Mullin <tim@cpanel.net> - 1.5.16-1
+- EA-8224: Updated to 1.5.16 from upstream
+
 * Tue Apr 16 2019 Andy Baugh <thomas.baugh@cpanel.net> - 1.5.12-2
 - CPANEL-26786: Add "provides" entry for memcached, as we actually conflict
   with the base package due to installing to the same place (but it is the
