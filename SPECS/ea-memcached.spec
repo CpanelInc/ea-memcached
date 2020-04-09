@@ -14,7 +14,7 @@ Name: ea-memcached
 Version: 1.5.16
 
 Summary: memcached daemon
-%define release_prefix 1
+%define release_prefix 2
 Release: %{release_prefix}%{?dist}.cpanel
 License: MIT
 Group: Programming/Languages
@@ -116,8 +116,14 @@ getent group %{groupname} >/dev/null || groupadd -r %{groupname}
 %post
 %if %{with_systemd}
   %systemd_post %{binname}.service
+  if [ $1 -eq 1 ] ; then
+    systemctl start %{binname}
+  fi
 %else
-    /sbin/chkconfig --add %{binname}
+  /sbin/chkconfig --add %{binname}
+  if [ $1 -eq 1 ] ; then
+    service %{binname} restart
+  fi
 %endif
 
 
@@ -163,6 +169,10 @@ getent group %{groupname} >/dev/null || groupadd -r %{groupname}
 %{_includedir}/memcached/*
 
 %changelog
+* Wed Apr 08 2020 Daniel Muey <dan@cpanel.net> - 1.5.16-2
+- ZC-6515: Promote from experimental
+- ZC-6537: start daemon after install
+
 * Fri Jun 14 2019 Tim Mullin <tim@cpanel.net> - 1.5.16-1
 - EA-8224: Updated to 1.5.16 from upstream
 
