@@ -1,1 +1,1 @@
-experimental packages will be built during ZC-8886, also needs the ZC-9142 treatment re: /bin/systemctl and %systemd_*
+We do not do experimental packages for ubuntu
